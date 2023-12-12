@@ -57,6 +57,9 @@ class StocksPost extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
+          Divider(
+            color: Colors.white,
+          ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
                 .copyWith(right: 0),
@@ -102,6 +105,9 @@ class StocksPost extends StatelessWidget {
               ],
             ),
           ),
+          Divider(
+            color: Colors.white,
+          ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
                 .copyWith(right: 0),
@@ -129,8 +135,9 @@ class StocksPost extends StatelessWidget {
                                     onPressed: () {},
                                     child: const Text('Confirm'))
                               ],
-                              title:const Text('Are you sure'),
-                              content: const Text('You are adding this stock to your portfolio. xxx ammount will be deducted from you account.'),
+                              title: const Text('Are you sure'),
+                              content: const Text(
+                                  'You are adding this stock to your portfolio. xxx ammount will be deducted from you account.'),
                             ));
                   },
                   child: const Text('Buy'),
@@ -160,8 +167,9 @@ class StocksPost extends StatelessWidget {
                                     onPressed: () {},
                                     child: const Text('Confirm'))
                               ],
-                              title:const Text('Are you sure'),
-                              content: const Text('Your removing this stock from your prtfolio. xxxx amount will be added to your account'),
+                              title: const Text('Are you sure'),
+                              content: const Text(
+                                  'Your removing this stock from your prtfolio. xxxx amount will be added to your account'),
                             ));
                   },
                   child: const Text('Sell'),

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hope/screens/home.dart';
 import 'package:hope/screens/login.dart';
+import 'package:hope/screens/profile.dart';
+import 'package:hope/screens/settings.dart';
+import 'package:hope/screens/wallet.dart';
 import 'package:hope/utils/colors.dart';
 import 'package:hope/widgets/cryptopost.dart';
 import 'package:hope/widgets/exchangepost.dart';
@@ -17,46 +21,53 @@ class ScreenLayout extends StatefulWidget {
 }
 
 class _ScreenLayoutState extends State<ScreenLayout> {
+
+  int index = 1;
+  final screens = [
+    WalletScreen(),
+    HomeScreen(),
+    AppSettingsScreen(),
+    ProfileScreen()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: gold,
-        leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.black,
-              size: 30,
-            )),
+        leading: Container(
+          alignment: Alignment.centerRight,
+          child: CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.grey,
+            child: Icon(Icons.person),
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
                 showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              backgroundColor:buttonsBackground,
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Close')),
-                                TextButton(
-                                    onPressed: () {
-                                      
-                                      Navigator.push(
-                                        context, 
-                                        MaterialPageRoute(builder: (context) => LoginScreen()
-                                        )
-                                      );
-                                    },
-                                    child: const Text('Sign Out'))
-                              ],
-                              title:const Text('Sign Out'),
-                              content: const Text('You are signing out.'),
-                            ));
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          backgroundColor: buttonsBackground,
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Close')),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen()));
+                                },
+                                child: const Text('Sign Out'))
+                          ],
+                          title: const Text('Sign Out'),
+                          content: const Text('You are signing out.'),
+                        ));
               },
               icon: const Icon(
                 Icons.logout_rounded,
@@ -70,113 +81,44 @@ class _ScreenLayoutState extends State<ScreenLayout> {
           height: 50,
         ),
       ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                  minimumSize: const Size(110, 8),
-                  foregroundColor: gold,
-                  textStyle: const TextStyle(fontSize: 18),
-                  backgroundColor: buttonsBackground,
-                ),
-                onPressed: () {},
-                child: const Text('Stock'),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  minimumSize: const Size(110, 8),
-                  foregroundColor: gold,
-                  textStyle: const TextStyle(fontSize: 18),
-                  backgroundColor: buttonsBackground,
-                ),
-                onPressed: () {},
-                child: const Text('Crypto'),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  minimumSize: const Size(110, 8),
-                  foregroundColor: gold,
-                  textStyle: const TextStyle(fontSize: 18),
-                  backgroundColor: buttonsBackground,
-                ),
-                onPressed: () {},
-                child: const Text('Exchange'),
-              )
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 80),
-            child: SearchArea(),
-          ),
-          Expanded(
-              child: Container(
-            child: PageView(
-              children: [
-                ListView(
-                  children: [
-                    StocksPost(),
-                    StocksPost(),
-                    StocksPost(),
-                    StocksPost(),
-                  ],
-                ),
-                ListView(
-                  children: [
-                    CryptoPost(),
-                    CryptoPost(),
-                    CryptoPost(),
-                    CryptoPost(),
-                  ],
-                ),
-                ListView(
-                  children: [
-                    ExchangePost(),
-                    ExchangePost(),
-                    ExchangePost(),
-                    ExchangePost(),
-                  ],
-                )
-              ],
-            ),
-          ))
-        ],
-      ),
+      body: screens[index],
       bottomNavigationBar: NavigationBar(
-        destinations: [
-          NavigationDestination(
-              icon: Icon(
-                Icons.account_balance_wallet_outlined,
-                color: gold,
-                size: 30,
-              ),
-              label: 'Balance'),
-          NavigationDestination(
-              icon: Icon(
-                Icons.home_filled,
-                color: gold,
-                size: 30,
-              ),
-              label: 'Home'),
-          NavigationDestination(
-              icon: Icon(
-                Icons.settings_outlined,
-                color: gold,
-                size: 30,
-              ),
-              label: 'Settings'),
-          NavigationDestination(
-              icon: Icon(
-                Icons.account_circle,
-                color: gold,
-                size: 30,
-              ),
-              label: 'Profile')
-        ],
-        //onDestinationSelected: ,
-      ),
+      selectedIndex: index,
+      onDestinationSelected: (index) => setState(() => this.index = index),
+
+      destinations: [
+        NavigationDestination(
+          icon: Icon(
+            Icons.account_balance_wallet_outlined,
+            color: gold,
+            size: 30,
+          ),
+          label: 'Balance',
+        ),
+        NavigationDestination(
+            icon: Icon(
+              Icons.home_filled,
+              color: gold,
+              size: 30,
+            ),
+            label: 'Home'),
+        NavigationDestination(
+            icon: Icon(
+              Icons.settings_outlined,
+              color: gold,
+              size: 30,
+            ),
+            label: 'Settings'),
+        NavigationDestination(
+            icon: Icon(
+              Icons.account_circle,
+              color: gold,
+              size: 30,
+            ),
+            label: 'Profile')
+      ],
+      //onDestinationSelected: ,
+    ),
     );
   }
 }

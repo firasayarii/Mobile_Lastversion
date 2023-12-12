@@ -3,107 +3,72 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hope/utils/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-class CryptoPost extends StatelessWidget {
-  const CryptoPost({super.key});
+class PortfolioPost extends StatelessWidget {
+  const PortfolioPost({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 5,vertical: 2.5),
       padding: const EdgeInsets.symmetric(
-        vertical: 15,
+        vertical: 10,
+        horizontal: 15
       ),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(25),
           color: buttonsBackground2,
           border: Border.all(
-            color: buttonsBackground,
+            color: buttonsBackground2,
             width: 2.0,
           )),
-      child: Column(
+      child:Column(
         children: [
-          Container(
-            child: SizedBox(
-              height: 300,
-              width: 400,
-              child: LineChart(
-                LineChartData(
-                  minX: 0,
-                  maxX: 15,
-                  minY: 15000,
-                  maxY: 20000,
-                  lineBarsData: [
-                    LineChartBarData(spots: [
-                      FlSpot(0, 15500),
-                      FlSpot(2, 15700),
-                      FlSpot(3, 15750),
-                      FlSpot(4, 16400),
-                      FlSpot(5, 17390),
-                      FlSpot(6, 15450),
-                      FlSpot(7, 19400),
-                      FlSpot(8, 19300),
-                      FlSpot(9, 18500),
-                      FlSpot(11, 18300),
-                      FlSpot(12, 19350),
-                      FlSpot(13, 19550),
-                      FlSpot(14, 18540),
-                      FlSpot(15, 19488),
-                    ])
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Divider(color: Colors.white,),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
-                .copyWith(right: 0),
-            child: Row(
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.white,
-                  child: SvgPicture.asset(
-                      'assets/FinanSync-logos_transparent.svg'),
-                ),
-                SizedBox(
-                  width: 5,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Asset_Name',
+                    ),
+                    SizedBox(height: 5,),
+                    Text('Symbol')
+                  ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Crypto_full_Name',
+                      'Qte',
                     ),
-                    SizedBox(height: 5,),
-                    Text('crypto_Symbol')
                   ],
                 ),
-                Expanded(
-                    child: Column(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Cost',
+                    ),
+                  ],
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      'crypto_Price_\$',
+                      'Current_Value\$',
                     ),
                     SizedBox(height: 5,),
                     Text('Change_%')
                   ],
-                )),
-                SizedBox(
-                  width: 32,
-                )
+                ),
+                //Expanded(
+                //    child: ),
               ],
             ),
-          ),
+          SizedBox(height: 7,),
           Divider(color: Colors.white,),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
-                .copyWith(right: 0),
-            child: Row(
+          Row(
               children: [
                 TextButton(
                   style: TextButton.styleFrom(
@@ -174,9 +139,8 @@ class CryptoPost extends StatelessWidget {
                 SizedBox(width: 15,),
               ],
             ),
-          ),
         ],
-      ),
+      )
     );
   }
 }
